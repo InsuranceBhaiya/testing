@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/assets/logo/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{{ insurance.seo.title }}</title>
+    <link rel="stylesheet" href="/static/css/styles/article.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="description"
+        content="Looking for the best auto insurance coverage? Check out our comprehensive guide on everything you need to know about auto insurance, including tips on how to find affordable rates, understand your coverage options, and more. Don't get caught without the right protection – read our article today!">
+    <meta name="keywords"
+        content="auto insurance for Uber/Lyft drivers, auto insurance for delivery drivers, auto insurance for rideshare drivers, auto insurance for leased vehicles, auto insurance for financed vehicles, auto insurance for salvaged vehicles, auto insurance for modified vehicles, auto insurance for antique cars, auto insurance for high-performance cars, auto insurance for imported cars, auto insurance for international drivers, auto insurance for snowbirds, auto insurance claim process, auto insurance terms and definitions, auto insurance discounts, auto insurance premium factors, auto insurance coverage limits, auto insurance add-ons, auto insurance laws, auto insurance requirements by state, auto insurance tips and advice, auto insurance FAQ">
+    <link rel="canonical" href="https://www.insurancebhaiya.com/article/auto-insurance">
+    <meta name="robots" content="index,follow">
+    <!-- Apple touch icon -->
+    <link rel="apple-touch-icon" href="https://www.insurancebhaiya.com/assets/logo/logo-md.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Meta card -->
+    <meta property="og:type" content="website">
+    <meta property="og:title"
+        content="Driving into Danger? The Eye-Opening Truth About Auto Insurance You Need to Know">
+    <meta property="og:description"
+        content="Looking for the best auto insurance coverage? Check out our comprehensive guide on everything you need to know about auto insurance, including tips on how to find affordable rates, understand your coverage options, and more. Don't get caught without the right protection – read our article today!">
+    <meta property="og:image" content="https://img.freepik.com/free-vector/man-shoots-car-crash-smartphone_107791-2690.jpg">
+    <meta property="og:url" content="https://www.insurancebhaiya.com/article/auto-insurance">
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@InsuranceBhaiya">
+    <meta name="twitter:title"
+        content="Driving into Danger? The Eye-Opening Truth About Auto Insurance You Need to Know">
+    <meta name="twitter:description"
+        content="Looking for the best auto insurance coverage? Check out our comprehensive guide on everything you need to know about auto insurance, including tips on how to find affordable rates, understand your coverage options, and more. Don't get caught without the right protection – read our article today!">
+    <meta name="twitter:url" content="https://www.insurancebhaiya.com/article/auto-insurance">
+    <meta name="twitter:image" content="https://img.freepik.com/free-vector/man-shoots-car-crash-smartphone_107791-2690.jpg">
+    {% include 'main/components/google-analytics.html' %}
+    {% include 'main/components/google-adsense.html' %}
+</head>
+
+<body id="article">
+    <!-- Header Section -->
+    <header id="bH">
+        <div class="nav-logo-box">
+            <a href="/" role="button">
+                <div class="logo">
+                    <img src="/static/assets/logo/logo-horizontal-dark.png" alt="Insurance Bhaiya logo" loading="lazy"
+                        decoding="async" height="25px" width="175px" />
+                </div>
+            </a>
+        </div>
+        <div class="social-feeds">
+            <!-- Facebook -->
+            <a href="/search" target="_blank" class="fa fa-search"></a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/InsuranceBhaiya" target="_blank" class="fa fa-facebook"></a>
+            <!-- Twitter -->
+            <a href="https://twitter.com/InsuranceBhaiya" target="_blank" class="fa fa-twitter"></a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/insurancebhaiya/" target="_blank" class="fa fa-instagram"></a>
+            <!-- Linkedin -->
+            <a href="https://www.linkedin.com/company/insurance-bhaiya/" target="_blank" class="fa fa-linkedin"></a>
+        </div>
+    </header>
+    <!-- Left Sidebar Section -->
+    <article id="bAl">
+        <div class="sidebar-page-nav pb-4">
+            <p class="label label-yellow">PAGE CONTENT</p>
+            <ul class="navigation">
+                <li><a href="#article">Top</a></li>
+                {% for content in insurance.content.content %}{% if content.linkingText %}
+                <li><a href="#{{ content.linkedID }}">{{ content.linkingText }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li><a href="#recommendation">Recommendation</a></li>
+            </ul>
+        </div>
+    </article>
+    <!-- Main Section -->
+    <main id="bM">
+        <!-- Free assets for position absolute (if any) -->
+        <div class="free-assets"></div>
+        <!-- Hero -->
+        <section class="article-hero">
+            <div class="article-path">
+                <ul>
+                    <li><a href="/"><span>&#9814;</span> Home</a></li>
+                    {% if insurance.sub_article %}
+                    <li><span>&#10170;</span></li>
+                    <li><a href="/article/{{ insurance.sub_article.url }}{% if insurance.sub_article.basic.sub_article.id %}?sub={{ insurance.sub_article.basic.sub_article.id }}{% endif %}">{{ insurance.sub_article.name }}</a></li>
+                    {% endif %}
+                    {% if insurance.name %}
+                    <li><span>&#10170;</span></li>
+                    <li><a href="/article/{{ insurance.url }}{% if insurance.basic.sub_article.is_sub_article %}?sub={{ insurance.basic.sub_article.id }}{% endif %}">{{ insurance.name }}</a></li>
+                    {% endif %}
+                </ul>
+                <p class="pub-date">Published On {{ insurance.last_updated_on }}</p>
+            </div>
+            <h1 class="article-title">{{ insurance.content.heading }}</h1>
+        </section>
+        <!-- Main -->
+        <section class="article-content">
+            <!-- ARTICLE HERE -->
+            <div class="content" id="top_content">
+                {% for content in insurance.content.content %}
+                {% if content.cardType == "content" %}
+                <div class="box"{% if content.linkedID %} id="{{ content.linkedID }}"{% endif %}>
+                    {% if content.linkingText %}
+                    <br>
+                    <h5 class="h5 sub-title">{{ content.linkingText }}</h5>
+                    {% endif %}
+                    {{ content.codeEditorContent|safe }}
+                </div>
+                {% endif %}
+                {% if content.cardType == "google-ad" %}
+                <div class="ad-section"></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Previous Next Articles -->
+            <div class="box">
+                <br>
+                <div class="previous-next-articles">
+                    <div class="previous-article-btn btn-box">
+                        <label for="previous_article">PREVIOUS</label>
+                        <a href="/article/{{ insurance.previous_article.url }}{% if insurance.previous_article.basic.sub_article.id %}?sub={{ insurance.previous_article.basic.sub_article.id }}{% endif %}" class="btn-text lg-d" id="previous_article">
+                            <div class="previous-next-article-arrow-icon">&#8678;</div>
+                            <p>{{ insurance.previous_article.name }}</p>
+                        </a>
+                        <div class="sm-d">
+                            <a href="/article/{{ insurance.previous_article.url }}{% if insurance.previous_article.basic.sub_article.id %}?sub={{ insurance.previous_article.basic.sub_article.id }}{% endif %}" class="btn-round">&#8249;</a>
+                        </div>
+                    </div>
+                    <div class="next-article-btn btn-box">
+                        <label for="next_article">NEXT</label>
+                        <a href="/article/{{ insurance.next_article.url }}{% if insurance.next_article.basic.sub_article.id %}?sub={{ insurance.next_article.basic.sub_article.id }}{% endif %}" class="btn-text lg-d" id="next_article">
+                            <p>{{ insurance.next_article.name }}</p>
+                            <div class="previous-next-article-arrow-icon">&#8680;</div>
+                        </a>
+                        <div class="sm-d">
+                            <a href="/article/{{ insurance.next_article.url }}{% if insurance.next_article.basic.sub_article.id %}?sub={{ insurance.next_article.basic.sub_article.id }}{% endif %}" class="btn-round">&#8250;</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <hr>
+            </div>
+            <!-- Recommendation -->
+            <!-- Nav Link Break -->
+            <div class="box" id="recommendation">
+                <br>
+                <div class="recommendation">
+                    <div class="c-header">
+                        <h6>RECOMMENDATION</h6>
+                    </div>
+                    <div class="container-cards">
+                        <!-- Health Insurance -->
+                        <div class="insurance-card">
+                            <div class="card-top-border"></div>
+                            <div class="content">
+                                <h2>{{ insurance.recommendation_article.basic.recommendation_title }}</h2>
+                                <p>{{ insurance.recommendation_article.basic.short_description }}</p>
+                                <div class="sub-insurance">
+                                    {% if insurance.sub_article_1 %}
+                                    <a href="/article/{{ insurance.sub_article_1.url }}{% if insurance.sub_article_1.basic.sub_article.id %}?sub={{ insurance.sub_article_1.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
+                                        <span>{{ insurance.sub_article_1.basic.sub_article_title }}</span>
+                                    </a>
+                                    {% endif %}
+                                    {% if insurance.sub_article_2 %}
+                                    <a href="/article/{{ insurance.sub_article_2.url }}{% if insurance.sub_article_2.basic.sub_article.id %}?sub={{ insurance.sub_article_2.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
+                                        <span>{{ insurance.sub_article_2.basic.sub_article_title }}</span>
+                                    </a>
+                                    {% endif %}
+                                    {% if insurance.sub_article_3 %}
+                                    <a href="/article/{{ insurance.sub_article_3.url }}{% if insurance.sub_article_3.basic.sub_article.id %}?sub={{ insurance.sub_article_3.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
+                                        <span>{{ insurance.sub_article_3.basic.sub_article_title }}</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <a href="/article/{{ insurance.recommendation_article.url }}{% if insurance.recommendation_article.basic.sub_article.id %}?sub={{ insurance.recommendation_article.basic.sub_article.id }}{% endif %}" class="to-article-btn" role="button"><span>{{ insurance.recommendation_article.name }}</span><span class="icon">&#10138;</span></a>
+                            </div>
+                            <div class="thumbnail">
+                                <img src="{{ insurance.recommendation_article.basic.thumbnail }}"
+                                    alt="{{ insurance.recommendation_article.basic.recommendation_title }} Insurance illustration" height="200px" width="auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <!-- Tags -->
+            <div class="box">
+                <br>
+                <div class="tags">
+                    <h6>TAGS</h6>
+                    <ul>
+                        {% for keyword in insurance.basic.content_keywords %}
+                        <li><a href="/article/{{ insurance.url }}{% if insurance.basic.sub_article.is_sub_article %}?sub={{ insurance.basic.sub_article.id }}{% endif %}" role="button">{{ keyword }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <br>
+            </div>
+        </section>
+        <!-- Right Sidebar -->
+        <article id="bAr">
+            <div class="a-thumbnail">
+                <img src="{{ insurance.thumbnail }}"
+                    alt="{{ insurance.name }} illustration" loading="lazy" decoding="async">
+            </div>
+            <div class="sticky-box">
+                <div class="a-tags">
+                    <p>Tags</p>
+                    <ul>
+                        {% for keyword in insurance.basic.sidebar_keywords %}
+                        <li><a href="/article/{{ insurance.url }}{% if insurance.basic.sub_article.is_sub_article %}?sub={{ insurance.basic.sub_article.id }}{% endif %}" role="button">{{ keyword }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </main>
+    <!-- Footer -->
+    {% include 'main/components/footer.html' %}
+    <!-- Share Button -->
+    {% include 'main/components/sharebtn.html' %}
+    <script src="/static/scripts/article.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/assets/logo/favicon.png" type="image/x-icon">
+    <title>Dashboard | Insurance Bhaiya</title>
+    <link rel="stylesheet" href="/static/css/dashboard/styles/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header id="bH">
+        <div class="nav-logo-box">
+            <a href="/" role="button">
+                <div class="logo">
+                    <img src="/static/assets/logo/logo-horizontal-dark.png" alt="Insurance Bhaiya logo" loading="lazy"
+                        decoding="async" height="25px" width="175px" />
+                </div>
+            </a>
+        </div>
+        <div class="dashboard-navigation">
+            <a href="{% url 'dashboard:Search' %}" target="_blank"><i class="bi bi-search"></i> Search</a>
+            <a href="{% url 'dashboard:Sitemap' %}" target="_blank"><i class="bi bi-diagram-3"></i> Sitemap</a>
+        </div>
+    </header>
+    <main>
+        <div class="container px-5 mx-auto">
+            {% if messages %}
+            {% for message in messages %}
+            <div{% if message.tags %} class="alert {{ message.tags }}" {% endif %} role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+        
+            <form method="post">
+                {% csrf_token %}
+                <div class="py-3 row align-items-end mt-3">
+                    <div class="col-auto pe-0">
+                        <label for="name" class="form-label">Name : </label>
+                    </div>
+                    <div class="form-group col">
+                        <input type="text" class="form-control shadow-none" name="name" id="name" placeholder="Insurance Name" required autocomplete="off">
+                    </div>
+                    <div class="form-group col-1">
+                        <button type="submit" class="btn btn-primary w-100 shadow-none" name="add_insurance">ADD</button>
+                    </div>
+                </div>
+            </form>
+            <div class="my-5">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <th scope="col" class="p-3 w-100">Name</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for insurance in insurances %}
+                        <tr>
+                            <th class="px-3 py-2">{{ forloop.counter }}</th>
+                            <td scope="col"><a href="{% url 'dashboard:Article' id=insurance.id %}" class="btn py-1 px-2 shadow-none" target="_blank" role="button">{{ insurance.name }}</a></td>
+                            <td class="px-3">{{ insurance.id }}</td>
+                            <td class="px-0 py-1 text-end">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ insurance.id }}" name="insurance_id">
+                                    <button type="submit" class="btn shadow-none py-1 px-2" name="delete_insurance"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body> 
+</html>

@@ -1,0 +1,54 @@
+@import "../../scss/base";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: $theme-bg;
+    header#bH {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        width: 100%;
+        .logo {
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+            height: 20px;
+            img {
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+        .dashboard-navigation {
+            display: inline-flex;
+            column-gap: 12px;
+            a, button {
+                padding: 8px 12px;
+                border-radius: 25px;
+                text-decoration: none;
+                color: $blue-dark-90;
+                background: $theme-bg-dark;
+                box-shadow: none;
+                outline: none;
+                border: none;
+                transition: all 0.25s ease-in-out;
+            }
+            a:hover, button:hover, button:focus {
+                background-color: $blue;
+                outline: none;
+                color: $white;
+            }
+        }
+    }
+    main {
+        table {
+            td {
+                vertical-align: middle;
+            }
+        }
+    }
+}
