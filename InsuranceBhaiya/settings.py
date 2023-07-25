@@ -47,7 +47,7 @@ SECRET_KEY = "django-insecure-lsjeg#w^=kr^yg&1i_x5ph61cd53767fa34us)(o2lw1erwx)9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "52.65.118.224", "localhost"]
+ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167"]
 
 
 # Application definition
