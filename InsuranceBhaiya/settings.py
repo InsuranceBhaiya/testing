@@ -27,7 +27,7 @@ environ.Env.read_env()
 atlas_client_connection = pymongo.MongoClient(f"mongodb+srv://{env('ATLAS_DB_USERNAME')}:{env('ATLAS_DB_PWD')}@{env('ATLAS_CLUSTER')}.pmwpdde.mongodb.net/?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority", connect=False)
 
 # Database 
-ATLAS_DB = atlas_client_connection["InsuranceBhaiya"]
+ATLAS_DB = atlas_client_connection[env('DB_NAME')]
 
 # Alerts
 MESSAGE_TAGS = {
