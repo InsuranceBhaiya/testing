@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from bson import ObjectId
 import uuid, datetime
+import random
 
 my_db = settings.ATLAS_DB
 article_collection = my_db['articles']
@@ -25,9 +26,10 @@ def article(request, url):
     insurance_data = article_collection.find_one({"url": url, "basic.sub_article.id": sub_article_of})
     
     if insurance_data is not None:
-        insurance_data['basic']['content_keywords'] = insurance_data['basic']['content_keywords'].split(", ")
-        insurance_data['basic']['sidebar_keywords'] = insurance_data['basic']['sidebar_keywords'].split(", ")
+        insurance_data['basic']['content_keywords'] = [keyword for keyword in insurance_data['basic']['content_keywords'].split(",") if keyword.strip()]
+        insurance_data['basic']['sidebar_keywords'] = [keyword for keyword in insurance_data['basic']['sidebar_keywords'].split(",") if keyword.strip()]
         _article_ids = set()
+        recommended_id = None
         # Sub Article
         if insurance_data['basic']['sub_article']['id']:
             _article_ids.add(ObjectId(insurance_data['basic']['sub_article']['id']))
@@ -40,52 +42,54 @@ def article(request, url):
         # Recommended Article
         if insurance_data['recommendation']['recommendation_article_id']:
             _article_ids.add(ObjectId(insurance_data['recommendation']['recommendation_article_id']))
-        # Recommended Article
-        if insurance_data['recommendation']['sub_article_id_1']:
-            _article_ids.add(ObjectId(insurance_data['recommendation']['sub_article_id_1']))
-        # Recommended Article
-        if insurance_data['recommendation']['sub_article_id_2']:
-            _article_ids.add(ObjectId(insurance_data['recommendation']['sub_article_id_2']))
-        # Recommended Article
-        if insurance_data['recommendation']['sub_article_id_3']:
-            _article_ids.add(ObjectId(insurance_data['recommendation']['sub_article_id_3']))
+            recommended_id = str(insurance_data['recommendation']['recommendation_article_id'])
+
+        if recommended_id is not None:
+            query_filter = {
+                "$or": [
+                    {"_id": {"$in": list(_article_ids)}},
+                    {"basic.sub_article.is_sub_article": True, "basic.sub_article.id": recommended_id}
+                ]
+            }
+        else:
+            query_filter = {"_id": {"$in": list(_article_ids)}}
 
         projection = {
             'name': 1,
             'url': 1,
             'basic': 1,
         }
-        _other_article_data = article_collection.find({"_id": {"$in": list(_article_ids)}}, projection)
+        _other_article_data = article_collection.find(query_filter, projection)
         _other_article_map = {str(_article['_id']): _article for _article in _other_article_data}
+
+        sub_recommendations = []
         
         for _article_id in _article_ids:
+            article_info = _other_article_map.get(str(_article_id))
             # Sub Article   
             if insurance_data['basic']['sub_article']['id'] == str(_article_id):
-                insurance_data['sub_article'] = _other_article_map.get(str(_article_id))
+                insurance_data['sub_article'] = article_info
 
             # Previous Article
             if insurance_data['recommendation']['previous_article_id'] == str(_article_id):
-                insurance_data['previous_article'] = _other_article_map.get(str(_article_id))
+                insurance_data['previous_article'] = article_info
 
             # Next Article
             if insurance_data['recommendation']['next_article_id'] == str(_article_id):
-                insurance_data['next_article'] = _other_article_map.get(str(_article_id))
+                insurance_data['next_article'] = article_info
 
             # Recommended Article
             if insurance_data['recommendation']['recommendation_article_id'] == str(_article_id):
-                insurance_data['recommendation_article'] = _other_article_map.get(str(_article_id))
+                insurance_data['recommendation_article'] = article_info
 
             # Sub Article 1
-            if insurance_data['recommendation']['sub_article_id_1'] == str(_article_id):
-                insurance_data['sub_article_1'] = _other_article_map.get(str(_article_id))
+            if insurance_data['recommendation']['recommendation_article_id'] == article_info['basic']['sub_article']['id']:
+                sub_recommendations.append(article_info)
 
-            # Sub Article 2
-            if insurance_data['recommendation']['sub_article_id_2'] == str(_article_id):
-                insurance_data['sub_article_2'] = _other_article_map.get(str(_article_id))
-
-            # Sub Article 3
-            if insurance_data['recommendation']['sub_article_id_3'] == str(_article_id):
-                insurance_data['sub_article_3'] = _other_article_map.get(str(_article_id))
+        if len(sub_recommendations) > 3:
+            insurance_data['sub_recommendations'] = random.sample(sub_recommendations, 3)
+        else:
+            insurance_data['sub_recommendations'] = sub_recommendations
                 
     data = {
         "insurance": insurance_data

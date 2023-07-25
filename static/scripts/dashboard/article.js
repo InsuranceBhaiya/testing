@@ -459,11 +459,11 @@ function saveContentData() {
     'thumbnail': document.getElementById("thumbnail").value,
     "basic": {
       'recommendation_title': document.getElementById("recommendation_title").value,
-      'short_description': document.getElementById("short_description").value,
+      'short_description': document.getElementById("short_description").value.trim(),
       'sub_article_title': document.getElementById("sub_article_title").value,
       'thumbnail': document.getElementById("recommendation_thumbnail").value,
-      'content_keywords': document.getElementById("content_keywords").value,
-      'sidebar_keywords': document.getElementById("sidebar_keywords").value,
+      'content_keywords': document.getElementById("content_keywords").value.trim(),
+      'sidebar_keywords': document.getElementById("sidebar_keywords").value.trim(),
       "sub_article": {
         'is_sub_article': document.getElementById("is_sub_article").checked,
         'id': document.getElementById("sub_article_id").value,
@@ -472,8 +472,8 @@ function saveContentData() {
     "seo": {
       "title": document.getElementById("head_title").value,
       "image_url": document.getElementById("head_image_url").value,
-      "description": document.getElementById("head_description").value,
-      "keywords": document.getElementById("head_keywords").value,
+      "description": document.getElementById("head_description").value.trim(),
+      "keywords": document.getElementById("head_keywords").value.trim(),
     },
     "content": {
       "heading": document.getElementById("contentHeading").value,
@@ -483,9 +483,6 @@ function saveContentData() {
       'previous_article_id': document.getElementById("previous_article_id").value,
       'next_article_id': document.getElementById("next_article_id").value,
       'recommendation_article_id': document.getElementById("recommendation_article_id").value,
-      'sub_article_id_1': document.getElementById("sub_article_id_1").value,
-      'sub_article_id_2': document.getElementById("sub_article_id_2").value,
-      'sub_article_id_3': document.getElementById("sub_article_id_3").value,
     },
   }
 

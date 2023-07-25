@@ -122,6 +122,7 @@
                 {% endfor %}
             </div>
             <!-- Previous Next Articles -->
+            {% if insurance.previous_article and insurance.next_article %}
             <div class="box">
                 <br>
                 <div class="previous-next-articles">
@@ -149,8 +150,10 @@
                 <br>
                 <hr>
             </div>
+            {% endif %}
             <!-- Recommendation -->
             <!-- Nav Link Break -->
+            {% if insurance.recommendation_article %}
             <div class="box" id="recommendation">
                 <br>
                 <div class="recommendation">
@@ -164,23 +167,15 @@
                             <div class="content">
                                 <h2>{{ insurance.recommendation_article.basic.recommendation_title }}</h2>
                                 <p>{{ insurance.recommendation_article.basic.short_description }}</p>
+                                {% if insurance.sub_recommendations %}
                                 <div class="sub-insurance">
-                                    {% if insurance.sub_article_1 %}
-                                    <a href="/article/{{ insurance.sub_article_1.url }}{% if insurance.sub_article_1.basic.sub_article.id %}?sub={{ insurance.sub_article_1.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
-                                        <span>{{ insurance.sub_article_1.basic.sub_article_title }}</span>
+                                    {% for recommended in insurance.sub_recommendations %}
+                                    <a href="/article/{{ recommended.url }}{% if recommended.basic.sub_article.id %}?sub={{ recommended.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
+                                        <span>{{ recommended.basic.sub_article_title }}</span>
                                     </a>
-                                    {% endif %}
-                                    {% if insurance.sub_article_2 %}
-                                    <a href="/article/{{ insurance.sub_article_2.url }}{% if insurance.sub_article_2.basic.sub_article.id %}?sub={{ insurance.sub_article_2.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
-                                        <span>{{ insurance.sub_article_2.basic.sub_article_title }}</span>
-                                    </a>
-                                    {% endif %}
-                                    {% if insurance.sub_article_3 %}
-                                    <a href="/article/{{ insurance.sub_article_3.url }}{% if insurance.sub_article_3.basic.sub_article.id %}?sub={{ insurance.sub_article_3.basic.sub_article.id }}{% endif %}" class="si-box" role="button">
-                                        <span>{{ insurance.sub_article_3.basic.sub_article_title }}</span>
-                                    </a>
-                                    {% endif %}
+                                    {% endfor %}
                                 </div>
+                                {% endif %}
                                 <a href="/article/{{ insurance.recommendation_article.url }}{% if insurance.recommendation_article.basic.sub_article.id %}?sub={{ insurance.recommendation_article.basic.sub_article.id }}{% endif %}" class="to-article-btn" role="button"><span>{{ insurance.recommendation_article.name }}</span><span class="icon">&#10138;</span></a>
                             </div>
                             <div class="thumbnail">
@@ -192,7 +187,9 @@
                 </div>
                 <br>
             </div>
+            {% endif %}
             <!-- Tags -->
+            {% if insurance.basic.content_keywords %}
             <div class="box">
                 <br>
                 <div class="tags">
@@ -205,13 +202,17 @@
                 </div>
                 <br>
             </div>
+            {% endif %}
         </section>
         <!-- Right Sidebar -->
         <article id="bAr">
+            {% if insurance.thumbnail %}
             <div class="a-thumbnail">
                 <img src="{{ insurance.thumbnail }}"
                     alt="{{ insurance.name }} illustration" loading="lazy" decoding="async">
             </div>
+            {% endif %}
+            {% if insurance.basic.sidebar_keywords %}
             <div class="sticky-box">
                 <div class="a-tags">
                     <p>Tags</p>
@@ -222,6 +223,7 @@
                     </ul>
                 </div>
             </div>
+            {% endif %}
         </article>
     </main>
     <!-- Footer -->
