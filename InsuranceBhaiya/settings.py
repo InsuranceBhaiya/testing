@@ -13,20 +13,21 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 import os, pymongo
-# import environ
+import environ
 
-# Initialise environment variables
-# env = environ.Env()
-# environ.Env.read_env()
-
-# atlas_client = pymongo.MongoClient('localhost', 27017)
-atlas_client_connection = pymongo.MongoClient(f"mongodb+srv://insurancebhaiya:UaZP7R03x4UXhxrf@insurancebhaiya.pmwpdde.mongodb.net/?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority", connect=False)
-
-# Database 
-ATLAS_DB = atlas_client_connection["InsuranceBhaiya"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+# atlas_client = pymongo.MongoClient('localhost', 27017)
+atlas_client_connection = pymongo.MongoClient(f"mongodb+srv://{env('ATLAS_DB_USERNAME')}:{env('ATLAS_DB_PWD')}@{env('ATLAS_CLUSTER')}.pmwpdde.mongodb.net/?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority", connect=False)
+
+# Database 
+ATLAS_DB = atlas_client_connection["InsuranceBhaiya"]
 
 # Alerts
 MESSAGE_TAGS = {
@@ -44,9 +45,9 @@ MESSAGE_TAGS = {
 SECRET_KEY = "django-insecure-lsjeg#w^=kr^yg&1i_x5ph61cd53767fa34us)(o2lw1erwx)9"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "52.65.118.224", "localhost"]
 
 
 # Application definition
@@ -61,7 +62,9 @@ INSTALLED_APPS = [
     # MyApps
     'dashboard.apps.DashboardConfig',
     'authenticator.apps.AuthenticatorConfig',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    # Other
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -73,7 +76,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+# Add the allowed origins that match your trusted origins.
+# For example:
+CORS_ALLOWED_ORIGINS = [
+    "https://www.insurancebhaiya.com",
+    "https://insurancebhaiya.com",
+    # Add more trusted origins if necessary
+]
+
+# Optional: You can also specify other CORS settings if needed.
+# For example:
+# CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+# CORS_ALLOW_HEADERS = ['Authorization', 'Content-Type']
+
 
 ROOT_URLCONF = 'InsuranceBhaiya.urls'
 
