@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="/static/assets/logo/favicon.png" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>{{ insurance.seo.title }}</title>
+<link rel="stylesheet" href="/static/css/styles/article.css">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="description" content="{{ insurance.seo.description }}">
+<meta name="keywords" content="{{ insurance.seo.keywords }}">
+<link rel="canonical" href="{{ request.get_full_path }}">
+<meta name="robots" content="index,follow">
+<!-- Apple touch icon -->
+<link rel="apple-touch-icon" href="/static/assets/logo/logo-md.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- Meta card -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ insurance.seo.title }}">
+<meta property="og:description" content="{{ insurance.seo.description }}">
+<meta property="og:image" content="{{ insurance.seo.image_url }}">
+<meta property="og:url" content="{{ request.get_full_path }}">
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@InsuranceBhaiya">
+<meta name="twitter:title" content="{{ insurance.seo.title }}">
+<meta name="twitter:description" content="{{ insurance.seo.description }}">
+<meta name="twitter:url" content="{{ request.get_full_path }}">
+<meta name="twitter:image" content="{{ insurance.seo.image_url }}">
+{% include 'main/components/google-analytics.html' %}
+{% include 'main/components/google-adsense.html' %}

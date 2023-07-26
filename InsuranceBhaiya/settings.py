@@ -42,10 +42,11 @@ MESSAGE_TAGS = {
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-lsjeg#w^=kr^yg&1i_x5ph61cd53767fa34us)(o2lw1erwx)9"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
+
 
 ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167"]
 
@@ -71,12 +72,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -89,10 +90,15 @@ CORS_ALLOWED_ORIGINS = [
     # Add more trusted origins if necessary
 ]
 
+CSRF_TRUSTED_ORIGINS=[
+    "https://www.insurancebhaiya.com",
+    "https://insurancebhaiya.com",
+]
+
 # Optional: You can also specify other CORS settings if needed.
 # For example:
-# CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
-# CORS_ALLOW_HEADERS = ['Authorization', 'Content-Type']
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+CORS_ALLOW_HEADERS = ['Authorization', 'Content-Type']
 
 
 ROOT_URLCONF = 'InsuranceBhaiya.urls'
@@ -121,16 +127,6 @@ WSGI_APPLICATION = 'InsuranceBhaiya.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'InsuranceBhaiya',
-#         'CLIENT': {
-#             # 'host': 'mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority',
-#             'host': 'mongodb://localhost:27017/',
-#         },
-#     }
-# }
 
 DATABASES = {
     'default': {
