@@ -114,6 +114,10 @@ def ads_file(request):
     return render(request, 'main/pages/ads.txt')
 
 
+def googlecc1a0711e704e752(request):
+    return render(request, 'main/pages/googlecc1a0711e704e752.html')
+
+
 def sitemap_view(request):
     urls = sitemaps_collection.find()
     context = {'urls': urls}

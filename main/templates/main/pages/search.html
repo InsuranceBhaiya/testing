@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/assets/logo/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/assets/logo/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Find the Perfect Insurance Plan: Your Comprehensive Guide to Searching and Comparing Insurance</title>
-    <link rel="stylesheet" href="/css/styles/search.css">
+    <link rel="stylesheet" href="/static/css/styles/search.css">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="description" content="Find the best insurance coverage for your needs with our comprehensive search tool. Compare rates and policies from top providers and get the protection you need for your home, car, health, and more. Get started now and make informed decisions about your insurance options.">
     <meta name="keywords" content="auto insurance, car insurance, vehicle insurance, comprehensive coverage, liability coverage, collision coverage, uninsured motorist coverage, affordable rates, deductible, coverage options, insurance quotes, claims process, car accidents, driving record, high-risk drivers, safe drivers, discounts, bundling policies, personal injury protection, insurance companies.">
-    <link rel="canonical" href="https://www.insurancebhaiya.com/search">
+    <link rel="canonical" href="{{ request.get_full_path }}">
     <meta name="robots" content="index,follow">
     <!-- Apple touch icon -->
-    <link rel="apple-touch-icon" href="https://www.insurancebhaiya.com/assets/logo/logo-md.png">
+    <link rel="apple-touch-icon" href="/static/assets/logo/logo-md.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Meta card -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Find the Perfect Insurance Plan: Your Comprehensive Guide to Searching and Comparing Insurance">
     <meta property="og:description" content="Find the best insurance coverage for your needs with our comprehensive search tool. Compare rates and policies from top providers and get the protection you need for your home, car, health, and more. Get started now and make informed decisions about your insurance options.">
-    <meta property="og:image" content="https://www.insurancebhaiya.com/assets/logo/logo-md.png">
-    <meta property="og:url" content="https://www.insurancebhaiya.com/search">
+    <meta property="og:image" content="/static/assets/logo/logo-md.png">
+    <meta property="og:url" content="{{ request.get_full_path }}">
     <!-- Twitter card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@InsuranceBhaiya">
     <meta name="twitter:title" content="Find the Perfect Insurance Plan: Your Comprehensive Guide to Searching and Comparing Insurance">
     <meta name="twitter:description" content="Find the best insurance coverage for your needs with our comprehensive search tool. Compare rates and policies from top providers and get the protection you need for your home, car, health, and more. Get started now and make informed decisions about your insurance options.">
-    <meta name="twitter:url" content="https://www.insurancebhaiya.com/search">
-    <meta name="twitter:image" content="https://www.insurancebhaiya.com/assets/logo/logo-md.png">
+    <meta name="twitter:url" content="{{ request.get_full_path }}">
+    <meta name="twitter:image" content="/static/assets/logo/logo-md.png">
     {% include 'main/components/google-analytics.html' %}
     {% include 'main/components/google-adsense.html' %}
 </head>
@@ -39,7 +39,7 @@
         <div class="nav-logo-box">
             <a href="/" role="button">
                 <div class="logo">
-                    <img src="/assets/logo/logo-horizontal-dark.png" alt="Insurance Bhaiya logo" loading="lazy" decoding="async" height="25px" width="175px" />
+                    <img src="/static/assets/logo/logo-horizontal-dark.png" alt="Insurance Bhaiya logo" loading="lazy" decoding="async" height="25px" width="175px" />
                 </div>
             </a>
         </div>
@@ -143,70 +143,11 @@
             </div>
         </section>
     </main>
-    <!-- Footer Section -->
-    <footer id="bF">
-        <div class="menu">
-            <div class="pages">
-                <ul>
-                    <li class="list-head">Menu</li>
-                    <li><a href="/page/about-us" target="_blank" role="button">About</a></li>
-                    <li><a href="/page/contact" target="_blank" role="button">Contact</a></li>
-                </ul>
-            </div>
-            <div class="insurance">
-                <ul>
-                    <li class="list-head">Insurances</li>
-                    <li><a href="/article/homeowners-insurance" target="_blank" role="button">Homeowners</a></li>
-                    <li><a href="/article/liability-insurance" target="_blank" role="button">Liability</a></li>
-                    <li><a href="/article/health-insurance" target="_blank" role="button">Health</a></li>
-                    <li><a href="/article/life-insurance" target="_blank" role="button">Life</a></li>
-                    <li><a href="/article/business-insurance" target="_blank" role="button">Business</a></li>
-                    <li><a href="/article/travel-insurance" target="_blank" role="button">Travel</a></li>
-                    <li><a href="/article/pet-insurance" target="_blank" role="button">Pet</a></li>
-                    <li><a href="/article/flood-insurance" target="_blank" role="button">Flood</a></li>
-                    <li><a href="/article/disability-insurance" target="_blank" role="button">Disability</a></li>
-                </ul> 
-            </div>
-        </div>
-        <!-- End Line -->
-        <div class="bottom-line">
-            <div class="copy-right-text">
-                <img src="/assets/logo/logo-md.svg" alt="insurance bhaiya logo" height="24px" width="24px" loading="lazy" decoding="async">
-                <p>&copy; <a href="/">Insurance Bhaiya</a> 2023. All rights reserved.</p>
-            </div>
-            <div class="policy-pages">
-                <a href="/disclaimer" target="_blank">Disclaimer</a>
-                <a href="/privacy-policy" target="_blank">Privacy Policy</a>
-                <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
-            </div>
-        </div>
-    </footer>
-    <section id="absolute_assets">
-        <ul class="share-menu bottomRight">
-            <li class="md-d share top">
-                <label for="share_btn">SHARE <i class="fa fa-share-alt"></i></label>
-                <input type="checkbox" id="share_btn">
-                <ul class="submenu">
-                    <!-- Facebook -->
-                    <li><button onclick="shareOnSocialMedia('facebook')" class="facebook"><i class="fa fa-facebook"></i></button></li>
-                    <!-- Twitter -->
-                    <li><button onclick="shareOnSocialMedia('twitter')" class="twitter"><i class="fa fa-twitter"></i></button></li>
-                    <!-- LinkedIn -->
-                    <li><button onclick="shareOnSocialMedia('linkedIn')" class="linkedin"><i class="fa fa-linkedin"></i></button></li>
-                    <!-- WhatsApp -->
-                    <li><button onclick="shareOnSocialMedia('whatsapp')" class="whatsapp"><i class="fa fa-whatsapp"></i></button></li>
-                    <!-- Pinterest -->
-                    <li><button onclick="shareOnSocialMedia('pinterest')" class="pinterest"><i class="fa fa-pinterest"></i></button></li>
-                    <!-- Copy to Clipboard -->
-                    <li><button onclick="copyToClipboard()" class="copy"><i class="fa fa-copy"></i></button></li>
-                </ul>
-            </li>
-            <li class="sm-d share">
-                <i class="fa fa-share-alt" id="shareBtn"></i>
-            </li>
-        </ul>
-    </section>
-    <script src="/scripts/article.js"></script>
-    <script src="/scripts/search.js"></script>
+    <!-- Footer -->
+    {% include 'main/components/footer.html' %}
+    <!-- Share Button -->
+    {% include 'main/components/sharebtn.html' %}
+    <script src="/static/scripts/article.js"></script>
+    <script src="/static/scripts/search.js"></script>
 </body>
 </html>

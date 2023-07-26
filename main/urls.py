@@ -13,4 +13,5 @@ urlpatterns = [
     path('disclaimer/', views.disclaimer, name='Disclaimer'),
     path('ads.txt', views.ads_file, name='adsFile'),
     path('sitemap.xml', views.sitemap_view, name='sitemap'),
+    path('googlecc1a0711e704e752', views.googlecc1a0711e704e752, name='sitemap'),
 ]  
