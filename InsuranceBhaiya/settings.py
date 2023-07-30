@@ -48,7 +48,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool("DEBUG", default=False)
 
 
-ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167", "localhost"]
+ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167"]
 
 
 # Application definition
