@@ -48,7 +48,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool("DEBUG", default=False)
 
 
-ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167"]
+ALLOWED_HOSTS = ["www.insurancebhaiya.com", "insurancebhaiya.com", "3.24.136.167", "localhost"]
 
 
 # Application definition
@@ -64,8 +64,11 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'authenticator.apps.AuthenticatorConfig',
     'main.apps.MainConfig',
+    'api.apps.ApiConfig',
     # Other
-    'corsheaders'
+    'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,21 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# myproject/settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',    # To support session authentication (optional)
+        'api.authentication.QueryParamAuthentication',  # Use this if you prefer query parameter authentication
+        'rest_framework.authentication.TokenAuthentication',    # For API key authentication with headers
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # For token-based authentication
+    ],
+}
+
+# Command to generate token
+# python manage.py generate_anonymous_token
+# GENERATED_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNjk0MDk3LCJpYXQiOjE2OTA2OTM3OTcsImp0aSI6ImM1NGU1NTU3NTk1NDQxYzA4YzRkNWQwOWQ5NDdlNDUxIiwidXNlcl9pZCI6Ik5vbmUifQ.Dz3PAxO5oXCq_8_OuIIu0LX7YkhEzLXzixmXVF-Fo1U"
+GENERATED_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNjk0ODQ2LCJpYXQiOjE2OTA2OTQ1NDYsImp0aSI6IjEzZTUyNjhhMGViZDQ0MTg4YTk3MDRlZjhmOGViZWQzIiwidXNlcl9pZCI6Ik5vbmUifQ.lESFbFj8PD-ek7br2aU7ykIqDUoGW1rM_V3h1UsO_KQ"
 
 
 # Password validation

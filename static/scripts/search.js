@@ -124,107 +124,110 @@ function searchList(query, list) {
   return Array.from(matches);
 }
 
-function searchByQuery() {
-  // Load the JSON data from file
-  fetch("/databases/insuranceKeywordsDB.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const searchKeys = data[0]["searchKeys"];
+let searchKeys;
+fetch("/api/search_keywords/")
+  .then((response) => response.json())
+  .then((data) => {
+    searchKeys = data;
+  })
 
-      // Get the input field and create the autocomplete instance
-      const input = document.getElementById("search_query_input");
-      const list = document.getElementById("search_recommadation");
-      list.innerHTML = "";
-      const searchQuery = input.value.toLowerCase();
-      const matches = searchList(searchQuery.trim(), searchKeys);
-      for (var i = 0; i < matches.length; i++) {
-        const listItem = document.createElement("li");
-        const link = document.createElement("a");
-        link.href = "/search?q=" + matches[i];
-        link.innerHTML = `<span>&#10138;</span>&ensp;${matches[i]}`;
-        listItem.appendChild(link);
-        list.appendChild(listItem);
-      }
-      if (input.value.trim() === "") {
-        list.innerHTML = "";
-      }
-    });
+function searchByQuery() {
+  // Get the input field and create the autocomplete instance
+  const input = document.getElementById("search_query_input");
+  const list = document.getElementById("search_recommadation");
+  list.innerHTML = "";
+  const searchQuery = input.value.toLowerCase();
+  const matches = searchList(searchQuery.trim(), searchKeys);
+
+  for (var i = 0; i < matches.length; i++) {
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "/search?q=" + matches[i];
+    link.innerHTML = `<span>&#10138;</span>&ensp;${matches[i]}`;
+    listItem.appendChild(link);
+    list.appendChild(listItem);
+    if (i > 10) {
+      break;
+    }
+  }
+  if (input.value.trim() === "") {
+    list.innerHTML = "";
+  }
 }
 var search_by_query = debounce(() => searchByQuery());
 
 
 let itemCount = 0;
-// Load the JSON data from the file
-fetch("/databases/insuranceData.json")
+
+// Get the URLSearchParams object from the current URL
+const urlSearchParams = new URLSearchParams(window.location.search);
+const query = urlSearchParams.get("q");
+let apiUrl;
+if (query === null || query === "") {
+  apiUrl = '/api/search_article';
+} else {
+  apiUrl = `/api/search_article?q=${query}`;
+}
+
+// Make the API request
+fetch(apiUrl)
   .then((response) => response.json())
   .then((data) => {
-    // Get the URLSearchParams object from the current URL
-    const urlSearchParams = new URLSearchParams(window.location.search);
+    const filteredData = data;
 
     // Get the value of the "q" parameter from the URLSearchParams object
-    const query = urlSearchParams.get("q");
     let resultsList = document.getElementById("results_container");
     if (query !== null) {
       document.getElementById("search_query_input").value = query;
 
-      // Filter the data based on the search query
-      const filteredData = data.filter((item) => {
-        const name = item.name.toLowerCase();
-        const description = item.description.toLowerCase();
-        const keywords = item.keywords;
-        // Search keyword through array
-        const searchSet = new Set(keywords.map((item) => item.toLowerCase()));
-        const isQueryMatched = searchSet.has(query.toLowerCase());
-
-        return (
-          name.includes(query.toLowerCase()) ||
-          isQueryMatched ||
-          description.includes(query.toLocaleLowerCase())
-        );
-      });
-
-      document.querySelector(
-        "#results_count"
-      ).innerHTML = `About <span>${filteredData.length}</span> results`;
+      document.querySelector("#results_count").innerHTML = `About <span>${filteredData.length}</span> results`;
       // Display the search results
       if (filteredData.length > 0) {
         filteredData.forEach((item, index) => {
           let card = "";
-          let thumbnail = "";
-          if ("thumbnail" in item) {
-            thumbnail = item.thumbnail;
+          let thumbnail;
+          if (item.thumbnail !== ""){
+            thumbnail = `<div class="thumbnail"><img src="${item.thumbnail}" alt="${item.name} illustration"></div>`;
+          } else {
+            thumbnail = "";
           }
+          let short_description;
+          if (item.basic.short_description !== ""){
+            short_description = `<p>${item.basic.short_description}</p>`;
+          } else {
+            short_description = "";
+          }
+          let tags = "";
+          if (item.search_keywords !== "" && item.search_keywords.length > 0) {
+            tags += "<ul class='keywords'>";
+            item.search_keywords.forEach((keyword) => {
+              tags += `<li>${keyword}</li>`;
+            })
+            tags += "</ul>";
+          }
+
           if (index % 2 == 0) {
-            card = `
-                        <div class="box">
-                            <a href="${item.url}" class="result-card result-card-opposite" role="button" target="_blank">
+            card = `<div class="box">
+                            <a href="/article/${item.url}" class="result-card result-card-opposite" role="button" target="_blank">
                                 <div class="card-text">
                                     <h2>${item.name}</h2>
-                                    <p>${item.description}</p>
-                                    <ul class="keywords">
-                                        <li>${item.keywords[0]}</li>
-                                        <li>${item.keywords[1]}</li>
-                                        <li>${item.keywords[2]}</li>
-                                    </ul>
+                                    ${short_description}
+                                    ${tags}
                                 </div>
-                                <div class="thumbnail"><img src="${thumbnail}" alt="${item.name} illustration"></div>
+                                ${thumbnail}
                             </a>
                         </div>`;
           } else {
             card = `<div class="box">
-                                <a href="${item.url}" class="result-card" role="button" target="_blank">
-                                    <div class="thumbnail"><img src="${thumbnail}" alt="${item.name} illustration"></div>
-                                    <div class="card-text">
-                                        <h2>${item.name}</h2>
-                                        <p>${item.description}</p>
-                                        <ul class="keywords">
-                                            <li>${item.keywords[0]}</li>
-                                            <li>${item.keywords[1]}</li>
-                                            <li>${item.keywords[2]}</li>
-                                        </ul>
-                                    </div>
-                                </a>
-                            </div>`;
+                            <a href="/article/${item.url}" class="result-card" role="button" target="_blank">
+                                ${thumbnail}
+                                <div class="card-text">
+                                    <h2>${item.name}</h2>
+                                    ${short_description}
+                                    ${tags}
+                                </div>
+                            </a>
+                        </div>`;
           }
           if (itemCount == index) {
             card += `<div class="box ad-section"></div>`;
@@ -287,7 +290,6 @@ const divElement = document.getElementById("search_results_box");
 inputField.addEventListener("focusout", (event) => {
   if (!divElement.contains(event.relatedTarget)) {
     // Perform the necessary actions if the focus out event occurred outside of the div element
-    console.log("Focus out event occurred outside of the div element.");
     document.getElementById("search_recommadation").innerHTML = "";
   }
 });
@@ -325,3 +327,5 @@ function refreshGoogleAds() {
 // Refresh ads every minute (60000 milliseconds)
 refreshGoogleAds()
 // setInterval(refreshGoogleAds, 60000);
+
+

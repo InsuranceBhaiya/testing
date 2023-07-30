@@ -436,6 +436,8 @@ body article#bAl {
   padding: 0 20px;
 }
 body article#bAl .top-insurance-container {
+  position: sticky;
+  top: 20px;
   padding-bottom: 50px;
 }
 body article#bAl .top-insurance-container h6.label-title {
@@ -629,9 +631,14 @@ body main#bM section.article-content .results-container .box .result-card {
 }
 body main#bM section.article-content .results-container .box .result-card .thumbnail {
   max-width: 180px;
+  max-height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow-y: hidden;
 }
 body main#bM section.article-content .results-container .box .result-card .thumbnail img {
   width: 100%;
+  margin: auto 0;
   height: auto;
   mix-blend-mode: multiply;
 }
@@ -985,6 +992,10 @@ body section#absolute_assets .share-menu .md-d {
   }
   body article#bAl {
     padding-top: 50px;
+  }
+  body article#bAl .top-insurance-container {
+    position: relative;
+    display: none;
   }
   body article#bAl .top-insurance-container .top-insurance .card h6 {
     font-size: 14px;

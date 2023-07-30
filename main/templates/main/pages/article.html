@@ -72,11 +72,14 @@
                 {% for content in insurance.content.content %}
                 {% if content.cardType == "content" %}
                 <div class="box"{% if content.linkedID %} id="{{ content.linkedID }}"{% endif %}>
-                    {% if content.linkingText %}
+                    {% if forloop.counter != 1 %}
                     <br>
+                    {% endif %}
+                    {% if content.linkingText %}
                     <h5 class="h5 sub-title">{{ content.linkingText }}</h5>
                     {% endif %}
                     {{ content.codeEditorContent|safe }}
+                    <br>
                 </div>
                 {% endif %}
                 {% if content.cardType == "google-ad" %}
@@ -172,7 +175,7 @@
             {% if insurance.thumbnail %}
             <div class="a-thumbnail">
                 <img src="{{ insurance.thumbnail }}"
-                    alt="{{ insurance.name }} illustration" loading="lazy" decoding="async">
+                alt="{{ insurance.name }} illustration" loading="lazy" decoding="async">
             </div>
             {% endif %}
             {% if insurance.basic.sidebar_keywords %}

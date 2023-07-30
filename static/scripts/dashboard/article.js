@@ -12,7 +12,30 @@ function tabSwitch() {
   checkActiveRadio();
 }
 
+// Function to get the value of a specific parameter from the URL query string
+function getParameterValue(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+
+// Function to switch the checked radio button
+function switchRadioBtn(tabname) {
+  const radioOptions = document.getElementsByName(tabname);
+
+  const tab_id = getParameterValue(tabname);
+  // Find the currently checked radio button
+  radioOptions.forEach((radioOption) => {
+    // If the second radio is checked, switch to the first radio; otherwise, switch to the second radio
+    if (radioOption.id === tab_id) {
+      radioOption.checked = true;
+    } else {
+      radioOption.checked = false;
+    }
+  })
+}
 tabSwitch();
+// switchRadioBtn("nav_tab_btn");
 
 function execCmd(command, value = null) {
   document.execCommand(command, false, value);
@@ -453,10 +476,20 @@ function saveContentData() {
     // Add the card object to the cardData array
     cardData.push(card);
   });
+
+  const content_keywords = document.getElementById("content_keywords").value.trim().split(', ');
+  const sidebar_keywords = document.getElementById("sidebar_keywords").value.trim().split(', ');
+
+  // Create a new Set from the combined array (removes duplicates)
+  const uniqueKeywords = new Set([...content_keywords, ...sidebar_keywords]);
+
+  // Convert the Set back to an array if needed
+  const search_keywords = Array.from(uniqueKeywords);
   const data = {
     'name': document.getElementById("article_name").value,
     'url': document.getElementById("article_url").value,
     'thumbnail': document.getElementById("thumbnail").value,
+    'search_keywords': search_keywords,
     "basic": {
       'recommendation_title': document.getElementById("recommendation_title").value,
       'short_description': document.getElementById("short_description").value.trim(),

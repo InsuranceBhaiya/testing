@@ -78,12 +78,12 @@ window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
 	if (window.innerWidth < 768) {
 		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-			document.querySelector("#bH .nav-logo-box img").src = "/assets/logo/logo-xs.svg";
+			document.querySelector("#bH .nav-logo-box img").src = "/static/assets/logo/logo-xs.svg";
 			document.querySelector("#bH .nav-logo-box img").setAttribute("width", "auto");
 			document.querySelector("#bH .social-feeds a.fa-instagram").style.display = "grid";
 			document.querySelector("#bH .social-feeds a.fa-linkedin").style.display = "grid";
 		} else {
-			document.querySelector("#bH .nav-logo-box img").src = "/assets/logo/logo-horizontal-dark.png";
+			document.querySelector("#bH .nav-logo-box img").src = "/static/assets/logo/logo-horizontal-dark.png";
 			document.querySelector("#bH .nav-logo-box img").setAttribute("width", "175px");
 			document.querySelector("#bH .social-feeds a.fa-instagram").style.display = "none";
 			document.querySelector("#bH .social-feeds a.fa-linkedin").style.display = "none";

@@ -10,7 +10,6 @@ from django.conf import settings
 
 my_db = settings.ATLAS_DB
 article_collection = my_db['articles']
-search_collection = my_db['search']
 sitemaps_collection = my_db['sitemaps']
 
 # Create your views here.
@@ -41,7 +40,7 @@ def home(request):
                 messages.success(request, "Insurance deleted successfully.")
         return redirect('dashboard:Home')  
 
-    insurances_data = article_collection.find({}, projection = {'name': 1})
+    insurances_data = article_collection.find({}, projection = {'name': 1, "basic.sub_article.is_sub_article": 1, "url":1})
     insurances = []
     for _ in insurances_data:
         _["id"] = str(_['_id'])
@@ -114,5 +113,6 @@ def sitemap_view(request):
     return render(request, 'dashboard/pages/sitemap.html', data)
 
 
+@login_required(login_url='auth:Login')
 def test_view(request):
     return render(request, "dashboard/pages/test.html")

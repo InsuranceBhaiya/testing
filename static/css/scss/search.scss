@@ -54,8 +54,8 @@ body {
         grid-area: article_left;
         padding: 0 20px;
         .top-insurance-container {
-            // position: sticky;
-            // top: 20px;
+            position: sticky;
+            top: 20px;
             padding-bottom: 50px;
             h6.label-title {
                 font-size: 14px;
@@ -242,8 +242,12 @@ body {
                         transition: all 0.25s ease-in-out;
                         .thumbnail {
                             max-width: 180px;
+                            max-height: 150px;
+                            object-fit: cover;
+                            overflow-y: hidden;
                             img {
                                 width: 100%;
+                                margin: auto 0;
                                 height: auto;
                                 mix-blend-mode: multiply;
                             }
@@ -573,6 +577,8 @@ body {
         article#bAl {
             padding-top: 50px;
             .top-insurance-container {
+                position: relative;
+                display: none;
                 .top-insurance {
                     .card {
                         h6 {

@@ -52,12 +52,13 @@
                     </div>
                 </div>
             </form>
-            <div class="my-5">
-                <table class="table table-sm">
+            <div class="mb-5 mt-3">
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
-                            <td></td>
-                            <th scope="col" class="p-3 w-100">Name</th>
+                            <th colspan="2" class="py-3">Article Name <br> <small><span class="text-secondary h6">about {{ insurances|length }} articles</span></small></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -65,15 +66,13 @@
                     <tbody>
                         {% for insurance in insurances %}
                         <tr>
-                            <th class="px-3 py-2">{{ forloop.counter }}</th>
-                            <td scope="col"><a href="{% url 'dashboard:Article' id=insurance.id %}" class="btn py-1 px-2 shadow-none" target="_blank" role="button">{{ insurance.name }}</a></td>
-                            <td class="px-3">{{ insurance.id }}</td>
+                            <th class="px-2 py-2 text-end">{{ forloop.counter }}</th>
+                            <td scope="col" class="px-0 w-100"><a href="{% url 'dashboard:Article' id=insurance.id %}" class="btn py-1 px-2 shadow-none" target="_blank" role="button">{{ insurance.name }}</a></td>
+                            <td class="ps-3 pe-0">{% if not insurance.basic.sub_article.is_sub_article %}<i class="bi bi-patch-check-fill text-primary"></i>{% endif %}</td>
+                            <td class="ps-3 pe-0">{{ insurance.id }}</td>
+                            <td class="px-3"><i class="bi bi-{% if insurance.url %}cloud-fill text-success{% else %}cloud-slash-fill text-danger{% endif %}"></i></td>
                             <td class="px-0 py-1 text-end">
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" value="{{ insurance.id }}" name="insurance_id">
-                                    <button type="submit" class="btn shadow-none py-1 px-2" name="delete_insurance"><i class="bi bi-trash"></i></button>
-                                </form>
+                                <button type="submit" class="btn shadow-none py-1 px-2" data-id="{{ insurance.id }}" name="delete_insurance"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
                         {% endfor %}
